@@ -59,14 +59,21 @@
             // Select animation
 	    switch(base.options.animation){
 
-		// Handle fade animations
+	        // Handle fade animations
 	    case 'fade':
-		$(base.el).hover(function () {
-		    $(base.options.overlay, base.el).stop().fadeTo(base.options.speed, base.options.opacity);
-		},function () {
-		    $(base.options.overlay, base.el).stop().fadeTo(base.options.speed, 0);
-		});
-
+                if (base.options.mouseevent == 'click') {
+		    $(base.el).click(function () {
+		        $(base.options.overlay, base.el).stop().fadeTo(base.options.speed, base.options.opacity);
+		    },function () {
+		        $(base.options.overlay, base.el).stop().fadeTo(base.options.speed, 0);
+		    });
+                } else {
+                    $(base.el).hover(function () {
+		        $(base.options.overlay, base.el).stop().fadeTo(base.options.speed, base.options.opacity);
+		    },function () {
+		        $(base.options.overlay, base.el).stop().fadeTo(base.options.speed, 0);
+		    });
+                }
 		break;
 
 		// Handle slide animations
@@ -83,15 +90,37 @@
 		endState[base.options.anchor_x] = startX;
 		endState[base.options.anchor_y] = startY;
 
-		$(base.el).hover(function () {
-                    setTimeout(function(){
-                      	$(base.options.overlay, base.el).stop().animate(hoverState, base.options.speed);
-                    }, base.options.hoverdelay);
-		},function () {
-                    setTimeout(function(){
-		        $(base.options.overlay, base.el).stop().animate(endState, base.options.speed);
-                    }, base.options.hoverdelay);
-		});
+                if (base.options.mouseevent == 'click') {
+		    $(base.el).click(function () {
+                        console.log('clicked');
+                        $(base.options.overlay, base.el).stop().animate(hoverState, base.options.speed);
+                        //setTimeout(function(){
+                        //  	$(base.options.overlay, base.el).stop().animate(hoverState, base.options.speed);
+                        //}, base.options.hoverdelay);
+		    },function () {
+                        console.log('here');
+                        $(base.options.overlay, base.el).stop().animate(hoverState, base.options.speed);
+                        //$(base.options.overlay, base.el).stop().animate(endState, base.options.speed);
+                        // setTimeout(function(){
+		        //     $(base.options.overlay, base.el).stop().animate(endState, base.options.speed);
+                        // }, base.options.hoverdelay);
+		    }); 
+                } else {
+		    $(base.el).hover(function () {
+                        console.log('clicked');
+                        $(base.options.overlay, base.el).stop().animate(hoverState, base.options.speed);
+                        //setTimeout(function(){
+                        //  	$(base.options.overlay, base.el).stop().animate(hoverState, base.options.speed);
+                        //}, base.options.hoverdelay);
+		    },function () {
+                        console.log('here');
+                        $(base.options.overlay, base.el).stop().animate(hoverState, base.options.speed);
+                        //$(base.options.overlay, base.el).stop().animate(endState, base.options.speed);
+                        // setTimeout(function(){
+		        //     $(base.options.overlay, base.el).stop().animate(endState, base.options.speed);
+                        // }, base.options.hoverdelay);
+		    }); 
+                }
 
 		break;
 	    };
@@ -112,7 +141,8 @@
         hover_y		: '0px',
         overlay  	: '.mosaic-overlay',	//Mosaic overlay
 	backdrop 	: '.mosaic-backdrop',	//Mosaic backdrop
-        hoverdelay      : '250'
+        hoverdelay      : '250',
+        mouseevent      : 'click' // click or hover
     };
 
     $.fn.mosaic = function(options){
