@@ -92,33 +92,17 @@
 
                 if (base.options.mouseevent == 'click') {
 		    $(base.el).click(function () {
-                        console.log('clicked');
-                        $(base.options.overlay, base.el).stop().animate(hoverState, base.options.speed);
-                        //setTimeout(function(){
-                        //  	$(base.options.overlay, base.el).stop().animate(hoverState, base.options.speed);
-                        //}, base.options.hoverdelay);
-		    },function () {
-                        console.log('here');
-                        $(base.options.overlay, base.el).stop().animate(hoverState, base.options.speed);
-                        //$(base.options.overlay, base.el).stop().animate(endState, base.options.speed);
-                        // setTimeout(function(){
-		        //     $(base.options.overlay, base.el).stop().animate(endState, base.options.speed);
-                        // }, base.options.hoverdelay);
+                        if($(base.el).find(base.options.overlay).hasClass('clicked')) {
+                            $(base.options.overlay, base.el).stop().animate(endState, base.options.speed).removeClass('clicked');                                                        
+                        } else {
+                            $(base.options.overlay, base.el).stop().animate(hoverState, base.options.speed).addClass('clicked');                            
+                        }
 		    }); 
                 } else {
 		    $(base.el).hover(function () {
-                        console.log('clicked');
-                        $(base.options.overlay, base.el).stop().animate(hoverState, base.options.speed);
-                        //setTimeout(function(){
-                        //  	$(base.options.overlay, base.el).stop().animate(hoverState, base.options.speed);
-                        //}, base.options.hoverdelay);
+                        $(base.options.overlay, base.el).stop().animate(endState, base.options.speed);
 		    },function () {
-                        console.log('here');
                         $(base.options.overlay, base.el).stop().animate(hoverState, base.options.speed);
-                        //$(base.options.overlay, base.el).stop().animate(endState, base.options.speed);
-                        // setTimeout(function(){
-		        //     $(base.options.overlay, base.el).stop().animate(endState, base.options.speed);
-                        // }, base.options.hoverdelay);
 		    }); 
                 }
 
